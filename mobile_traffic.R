@@ -18,3 +18,6 @@ getmode <- function(v) {
 }
 
 data_date<-data %>% group_by(city, type, date) %>% summarise_each(funs(mean))
+
+#https://wotres.tistory.com/31 aggregation 함수 관련 오류 참조
+#openair manual 49page : wind direction 평균내는 방법

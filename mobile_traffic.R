@@ -29,5 +29,7 @@ data_Sw <- data_date %>% filter(city=="수원") %>% split(f = "type")
 timePlot(subset(data_date, city=="수원" & type=="이동차"), pollutant =c("NO2", "O3", "PM10", "PM25", "WS"), y.relation="free", lwd = 2, main = "이동차(수원)")
 #y.relation : 각 그래프의 y축 scale을 각각 구성
 
+#timeVariation 함수를 이동차와 도시대기 그리고 그 difference로 표시하면 좋을듯
+
 #https://wotres.tistory.com/31 aggregation 함수 관련 오류 참조
 #openair manual 49page : wind direction 평균내는 방법

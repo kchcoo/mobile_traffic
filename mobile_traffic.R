@@ -2,6 +2,7 @@ library(tidyverse)
 library(readxl)
 library(dplyr)
 library(tidyr)
+library(openair)
 
 data<-read_excel("tms_raw.xlsx", sheet = "raw_hourly") #NA나 이상값들은 모두 공백처리
 #어째서 transmute가 제대로 작동 안하는지 모르겠음 그래서 mutate후에 data에 덮어씌우는 형태로 진행
@@ -17,7 +18,16 @@ getmode <- function(v) {
   
 }
 
-data_date<-data %>% group_by(city, type, date) %>% summarise_each(funs(mean))
+data_date<-data %>% group_by(city, type, date) %>% summarise_each(funs(mean)) #WD 평균관련 오류를 해결하기 전까지 WD자료 사용 주의
+data_date<-select(data_date, -site_name, -site_number) #측정소명과 측정소번호 자료에서 제외
+data_date$city<-as.factor(data_date$city) #도시명과 측정소형태를 factor화
+data_date$type<-as.factor(data_date$type)
+
+data_city_split <- data_date %>% group_by(city) %>% split(data_date, f = "type")
+data_Sw <- data_date %>% filter(city=="수원") %>% split(f = "type")
+
+timePlot(subset(data_date, city=="수원" & type=="이동차"), pollutant =c("NO2", "O3", "PM10", "PM25", "WS"), y.relation="free", lwd = 2, main = "이동차(수원)")
+#y.relation : 각 그래프의 y축 scale을 각각 구성
 
 #https://wotres.tistory.com/31 aggregation 함수 관련 오류 참조
 #openair manual 49page : wind direction 평균내는 방법

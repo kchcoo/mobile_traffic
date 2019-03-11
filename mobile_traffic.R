@@ -1,4 +1,5 @@
 library(tidyverse)
+library(lattice)
 library(readxl)
 library(dplyr)
 library(tidyr)
@@ -33,14 +34,22 @@ data_Bc <- data_date %>% filter(city=="부천")
 data_Gy <- data_date %>% filter(city=="고양")
 data_Pt <- data_date %>% filter(city=="평택")
 
-timePlot(subset(data_date, city=="수원" & type=="이동차"), pollutant =c("NO2", "O3", "PM10", "PM25", "WS"), y.relation="free", lwd = 2, main = "이동차(수원)")
-timePlot(subset(data_date, city=="수원" & type=="도시대기"), pollutant =c("NO2", "O3", "PM10", "PM25", "WS"), y.relation="free", lwd = 2, main = "도시대기(수원)")
-timePlot(subset(data_date, city=="수원" & type=="도로변"), pollutant =c("NO2", "O3", "PM10", "PM25", "WS"), y.relation="free", lwd = 2, main = "도로변(수원)")
+timePlot(subset(data_date, city=="수원" & type=="이동차"), pollutant =c("NO2", "O3", "PM10", "PM25", "WS", "temp"), y.relation="free", lwd = 2, main = "이동차(수원)")
+timePlot(subset(data_date, city=="수원" & type=="도시대기"), pollutant =c("NO2", "O3", "PM10", "PM25", "WS", "temp"), y.relation="free", lwd = 2, main = "도시대기(수원)")
+timePlot(subset(data_date, city=="수원" & type=="도로변"), pollutant =c("NO2", "O3", "PM10", "PM25", "WS", "temp"), y.relation="free", lwd = 2, main = "도로변(수원)")
 
 timePlot(data_Sw, pollutant = c("NO2", "O3", "PM10", "PM25", "WS"), group = T, y.relation = "free", lwd = 2) #실패 그래프 그룹화 in r 찾아볼것
 #y.relation : 각 그래프의 y축 scale을 각각 구성
 
 #timeVariation 함수를 이동차와 도시대기 그리고 그 difference로 표시하면 좋을듯
+timeVariation(data_date, pollutant = "SO2", group = "type", lwd = 2)
+timeVariation(data_date, pollutant = "NO2", group = "type", lwd = 2)
+timeVariation(data_date, pollutant = "CO", group = "type", lwd = 2)
+timeVariation(data_date, pollutant = "O3", group = "type", lwd = 2)
+timeVariation(data_date, pollutant = "PM10", group = "type", lwd = 2)
+timeVariation(data_date, pollutant = "PM25", group = "type", lwd = 2)
+
+
 timeVariation(data_Sw, pollutant = "NO2", group = "type") #데이터가 list형식이면 plot이 그려지지 않음
 timeVariation(data_Yi, pollutant = "NO2", group = "type")
 timeVariation(data_Nyj, pollutant = "NO2", group = "type")

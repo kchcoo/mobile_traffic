@@ -34,7 +34,7 @@ data_Bc <- data_date %>% filter(city=="부천")
 data_Gy <- data_date %>% filter(city=="고양")
 data_Pt <- data_date %>% filter(city=="평택")
 
-timePlot(subset(data_date, city=="수원" & type=="이동차"), pollutant =c("NO2", "O3", "PM10", "PM25", "WS", "temp"), y.relation="free", lwd = 2, main = "이동차(수원)")
+timePlot_kch(subset(data_date, city=="수원" & type=="이동차"), subset(data_date, city=="수원" & type=="도시대기"), pollutant =c("NO2", "O3", "PM10", "PM25", "WS", "temp"), y.relation="free", lwd = 2, main = "이동차(수원)")
 timePlot(subset(data_date, city=="수원" & type=="도시대기"), pollutant =c("NO2", "O3", "PM10", "PM25", "WS", "temp"), y.relation="free", lwd = 2, main = "도시대기(수원)")
 timePlot(subset(data_date, city=="수원" & type=="도로변"), pollutant =c("NO2", "O3", "PM10", "PM25", "WS", "temp"), y.relation="free", lwd = 2, main = "도로변(수원)")
 
